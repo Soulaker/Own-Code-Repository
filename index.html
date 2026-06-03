@@ -6,29 +6,29 @@
     <title>PRTS 数据库管理系统 - 罗德岛干员档案库 | 数据库设计 × 明日方舟</title>
     <style>
         :root {
-            --bg-primary: #0a0e14;
-            --bg-secondary: #111720;
-            --bg-panel: #161c26;
-            --bg-card: #1a2130;
-            --border: #252d3a;
-            --border-active: #4a5568;
-            --text-primary: #d4d8e0;
-            --text-secondary: #8b95a5;
-            --text-muted: #5a6474;
-            --accent: #e8a849;
-            --accent-bright: #f5c462;
-            --accent-dim: #a0762a;
-            --blue-accent: #5b9bd5;
-            --green-accent: #6db87d;
-            --red-accent: #c75b5b;
-            --purple-accent: #8b7ec8;
-            --cyan-accent: #5bb5c7;
-            --operator-star: #f8d56b;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-panel: #1a1a1a;
+            --bg-card: #222222;
+            --border: #333333;
+            --border-active: #555555;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --text-muted: #888888;
+            --accent: #e63946;
+            --accent-bright: #ff4757;
+            --accent-dim: #b71c1c;
+            --blue-accent: #e63946;
+            --green-accent: #e63946;
+            --red-accent: #e63946;
+            --purple-accent: #e63946;
+            --cyan-accent: #e63946;
+            --operator-star: #ff4757;
             --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', 'Monaco', 'Courier New', monospace;
             --font-sans: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
             --font-display: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            --shadow-glow: 0 0 20px rgba(232, 168, 73, 0.15);
-            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 20px rgba(230, 57, 70, 0.2);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.5);
             --radius-sm: 4px;
             --radius-md: 8px;
             --radius-lg: 12px;
@@ -56,7 +56,6 @@
             position: relative;
         }
 
-        /* 👇 只在这里加了能天使背景，其他完全没动 */
         body::before {
             content: '';
             position: fixed;
@@ -68,13 +67,12 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.12;
-            filter: brightness(0.6) saturate(0.8);
+            opacity: 0.35;
+            filter: brightness(0.85) saturat(1.1);
             z-index: -1;
             pointer-events: none;
         }
 
-        /* 背景粒子 */
         .bg-particles {
             position: fixed;
             top: 0;
@@ -112,7 +110,6 @@
             }
         }
 
-        /* 顶部导航栏 */
         .top-nav {
             position: sticky;
             top: 0;
@@ -147,19 +144,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #1a1a1a;
+            color: #111;
             font-weight: 900;
             font-size: 0.8rem;
             animation: logoPulse 3s ease-in-out infinite;
         }
         @keyframes logoPulse {
-            0%,
-            100% {
-                box-shadow: 0 0 8px rgba(232, 168, 73, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 22px rgba(232, 168, 73, 0.9);
-            }
+            0%,100% { box-shadow: 0 0 8px rgba(230,57,70,0.5); }
+            50%  { box-shadow: 0 0 22px rgba(230,57,70,0.9); }
         }
         .nav-links {
             display: flex;
@@ -184,43 +176,35 @@
         .nav-link:hover {
             color: var(--accent);
             border-color: var(--border-active);
-            background: rgba(232, 168, 73, 0.05);
+            background: rgba(230,57,70,0.05);
         }
         .nav-link.active {
-            color: var(--accent-bright);
+            color: #fff;
             border-color: var(--accent);
-            background: rgba(232, 168, 73, 0.12);
+            background: rgba(230,57,70,0.15);
             font-weight: 600;
-            box-shadow: 0 0 12px rgba(232, 168, 73, 0.2);
+            box-shadow: 0 0 12px rgba(230,57,70,0.2);
         }
         .nav-status {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 0.78rem;
-            color: var(--green-accent);
+            color: var(--accent);
             white-space: nowrap;
         }
         .status-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--green-accent);
+            background: var(--accent);
             animation: statusBlink 2s ease-in-out infinite;
         }
         @keyframes statusBlink {
-            0%,
-            100% {
-                opacity: 1;
-                box-shadow: 0 0 6px var(--green-accent);
-            }
-            50% {
-                opacity: 0.4;
-                box-shadow: 0 0 2px var(--green-accent);
-            }
+            0%,100% { opacity:1; box-shadow:0 0 6px var(--accent); }
+            50%    { opacity:0.4; box-shadow:0 0 2px var(--accent); }
         }
 
-        /* 主布局 */
         .main-container {
             position: relative;
             z-index: 1;
@@ -232,7 +216,6 @@
             min-height: calc(100vh - 56px);
         }
 
-        /* 侧边栏 */
         .sidebar {
             width: 260px;
             flex-shrink: 0;
@@ -280,14 +263,14 @@
         .sidebar-item:hover {
             color: var(--text-primary);
             border-color: var(--border-active);
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.03);
         }
         .sidebar-item.active {
-            color: var(--accent-bright);
+            color: #fff;
             border-color: var(--accent);
-            background: rgba(232, 168, 73, 0.1);
+            background: rgba(230,57,70,0.12);
             font-weight: 600;
-            box-shadow: 0 0 10px rgba(232, 168, 73, 0.15);
+            box-shadow: 0 0 10px rgba(230,57,70,0.15);
         }
         .sidebar-item .s-icon {
             font-size: 1.1rem;
@@ -296,7 +279,6 @@
             flex-shrink: 0;
         }
 
-        /* 内容区 */
         .content-area {
             flex: 1;
             display: flex;
@@ -305,7 +287,6 @@
             min-width: 0;
         }
 
-        /* 面板 */
         .panel {
             background: var(--bg-panel);
             border: 1px solid var(--border);
@@ -338,17 +319,16 @@
             font-weight: 600;
         }
         .badge-db {
-            background: rgba(91, 155, 213, 0.2);
-            color: var(--blue-accent);
-            border: 1px solid rgba(91, 155, 213, 0.4);
+            background: rgba(230,57,70,0.2);
+            color: #fff;
+            border: 1px solid rgba(230,57,70,0.4);
         }
         .badge-ark {
-            background: rgba(232, 168, 73, 0.2);
-            color: var(--accent-bright);
-            border: 1px solid rgba(232, 168, 73, 0.4);
+            background: rgba(230,57,70,0.2);
+            color: #fff;
+            border: 1px solid rgba(230,57,70,0.4);
         }
 
-        /* 映射卡片网格 */
         .mapping-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -371,12 +351,12 @@
         }
         .mapping-card.selected {
             border-color: var(--accent);
-            box-shadow: 0 0 24px rgba(232, 168, 73, 0.25);
+            box-shadow: 0 0 24px rgba(230,57,70,0.25);
             background: var(--bg-card);
         }
         .mapping-card .card-db {
             font-size: 0.7rem;
-            color: var(--blue-accent);
+            color: var(--accent);
             letter-spacing: 2px;
             text-transform: uppercase;
             margin-bottom: 4px;
@@ -384,7 +364,7 @@
         }
         .mapping-card .card-ark {
             font-size: 0.95rem;
-            color: var(--accent-bright);
+            color: #fff;
             font-weight: 700;
             margin-bottom: 6px;
             letter-spacing: 0.5px;
@@ -404,23 +384,16 @@
             transition: var(--transition);
         }
         .mapping-card.selected .card-arrow {
-            color: var(--accent-bright);
+            color: var(--accent);
             right: 10px;
         }
 
-        /* 详情展示区 */
         .detail-panel {
             animation: fadeSlideIn 0.4s ease-out;
         }
         @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity:0; transform:translateY(12px); }
+            to { opacity:1; transform:translateY(0); }
         }
         .detail-table {
             width: 100%;
@@ -428,8 +401,7 @@
             font-size: 0.82rem;
             margin-top: 8px;
         }
-        .detail-table th,
-        .detail-table td {
+        .detail-table th, .detail-table td {
             padding: 10px 14px;
             text-align: left;
             border-bottom: 1px solid var(--border);
@@ -439,52 +411,38 @@
             font-weight: 600;
             letter-spacing: 1px;
             font-size: 0.75rem;
-            background: rgba(232, 168, 73, 0.04);
+            background: rgba(230,57,70,0.04);
         }
         .detail-table td {
             color: var(--text-secondary);
         }
         .detail-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255,255,255,0.02);
         }
         .highlight-val {
-            color: var(--accent-bright);
+            color: var(--accent);
             font-weight: 600;
         }
         .code-block {
-            background: #0d1117;
+            background: #0a0a0a;
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             padding: 16px;
             font-family: var(--font-mono);
             font-size: 0.78rem;
-            color: #c9d1d9;
+            color: #fff;
             overflow-x: auto;
             line-height: 1.7;
             white-space: pre-wrap;
             position: relative;
         }
-        .code-block .keyword {
-            color: #ff7b72;
-        }
-        .code-block .table-name {
-            color: #d2a8ff;
-        }
-        .code-block .field-name {
-            color: #79c0ff;
-        }
-        .code-block .comment {
-            color: #8b949e;
-            font-style: italic;
-        }
-        .code-block .string-val {
-            color: #a5d6ff;
-        }
-        .code-block .type-val {
-            color: #ffa657;
-        }
+        .code-block .keyword { color: var(--accent); }
+        .code-block .table-name { color: #ff8888; }
+        .code-block .field-name { color: #ffaaaa; }
+        .code-block .comment { color: #777; font-style: italic; }
+        .code-block .string-val { color: #ffaaaa; }
+        .code-block .type-val { color: var(--accent); }
 
-        /* 查询模拟器 */
         .query-simulator {
             display: flex;
             flex-direction: column;
@@ -513,26 +471,26 @@
         }
         .query-tag.active-tag {
             border-color: var(--accent);
-            background: rgba(232, 168, 73, 0.18);
-            color: var(--accent-bright);
+            background: rgba(230,57,70,0.2);
+            color: #fff;
             font-weight: 600;
-            box-shadow: 0 0 10px rgba(232, 168, 73, 0.2);
+            box-shadow: 0 0 10px rgba(230,57,70,0.2);
         }
         .query-result-area {
-            background: #0d1117;
+            background: #0a0a0a;
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             padding: 16px;
             min-height: 120px;
             font-family: var(--font-mono);
             font-size: 0.78rem;
-            color: #c9d1d9;
+            color: #fff;
             max-height: 300px;
             overflow-y: auto;
         }
         .query-result-area .result-row {
             padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
             display: flex;
             gap: 12px;
             align-items: center;
@@ -547,18 +505,18 @@
             min-width: 60px;
         }
         .result-class {
-            color: var(--blue-accent);
+            color: #fff;
             font-size: 0.7rem;
             padding: 2px 8px;
             border-radius: 10px;
-            background: rgba(91, 155, 213, 0.15);
+            background: rgba(230,57,70,0.2);
         }
         .btn {
             padding: 10px 20px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--accent);
-            background: rgba(232, 168, 73, 0.1);
-            color: var(--accent-bright);
+            background: rgba(230,57,70,0.1);
+            color: #fff;
             cursor: pointer;
             font-family: var(--font-sans);
             font-size: 0.85rem;
@@ -567,21 +525,20 @@
             font-weight: 600;
         }
         .btn:hover {
-            background: rgba(232, 168, 73, 0.22);
-            box-shadow: 0 0 16px rgba(232, 168, 73, 0.3);
+            background: rgba(230,57,70,0.22);
+            box-shadow: 0 0 16px rgba(230,57,70,0.3);
         }
         .btn-primary {
             background: var(--accent);
-            color: #1a1a1a;
+            color: #fff;
             border-color: var(--accent);
             font-weight: 700;
         }
         .btn-primary:hover {
             background: var(--accent-bright);
-            box-shadow: 0 0 20px rgba(232, 168, 73, 0.5);
+            box-shadow: 0 0 20px rgba(230,57,70,0.5);
         }
 
-        /* ER图可视化 */
         .er-diagram {
             display: flex;
             flex-wrap: wrap;
@@ -602,12 +559,12 @@
         }
         .er-table:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(232, 168, 73, 0.3);
+            box-shadow: 0 0 20px rgba(230,57,70,0.3);
             z-index: 2;
         }
         .er-table .er-title {
             font-weight: 700;
-            color: var(--accent-bright);
+            color: #fff;
             letter-spacing: 1px;
             margin-bottom: 8px;
             font-size: 0.9rem;
@@ -623,7 +580,7 @@
             font-weight: 600;
         }
         .er-table .er-field.fk {
-            color: var(--cyan-accent);
+            color: var(--accent);
         }
         .er-connector {
             display: flex;
@@ -635,56 +592,49 @@
             align-self: center;
         }
 
-        /* 终端模拟器 */
         .terminal {
-            background: #0a0c10;
-            border: 1px solid #1a1f2b;
+            background: #070707;
+            border: 1px solid #222;
             border-radius: var(--radius-md);
             overflow: hidden;
             font-family: var(--font-mono);
         }
         .terminal-header {
-            background: #161b24;
+            background: #111;
             padding: 8px 14px;
             display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid #1a1f2b;
+            border-bottom: 1px solid #222;
         }
         .terminal-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
         }
-        .terminal-dot.red {
-            background: #e0555a;
-        }
-        .terminal-dot.yellow {
-            background: #e8a849;
-        }
-        .terminal-dot.green {
-            background: #5bb57b;
-        }
+        .terminal-dot.red { background: var(--accent); }
+        .terminal-dot.yellow { background: var(--accent); }
+        .terminal-dot.green { background: var(--accent); }
         .terminal-title {
             flex: 1;
             text-align: center;
             font-size: 0.7rem;
-            color: #5a6474;
+            color: #666;
             letter-spacing: 1px;
         }
         .terminal-body {
             padding: 14px;
             font-size: 0.76rem;
-            color: #b0b8c4;
+            color: #ccc;
             line-height: 1.8;
             max-height: 250px;
             overflow-y: auto;
         }
         .terminal-body .prompt {
-            color: var(--green-accent);
+            color: var(--accent);
         }
         .terminal-body .cmd {
-            color: #c9d1d9;
+            color: #fff;
         }
         .terminal-body .output-highlight {
             color: var(--accent-bright);
@@ -693,19 +643,16 @@
             animation: blink 1s step-end infinite;
         }
         @keyframes blink {
-            50% {
-                opacity: 0;
-            }
+            50% { opacity:0; }
         }
 
-        /* Toast提示 */
         .toast {
             position: fixed;
             bottom: 30px;
             right: 30px;
             background: var(--bg-panel);
             border: 1px solid var(--accent);
-            color: var(--accent-bright);
+            color: #fff;
             padding: 12px 20px;
             border-radius: var(--radius-md);
             font-size: 0.85rem;
@@ -714,7 +661,7 @@
             transform: translateY(20px);
             transition: all 0.35s ease;
             pointer-events: none;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
             letter-spacing: 0.5px;
         }
         .toast.show {
@@ -722,111 +669,38 @@
             transform: translateY(0);
         }
 
-        /* 响应式 */
         @media (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-                padding: 12px;
-                gap: 12px;
-            }
-            .sidebar {
-                width: 100%;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 6px;
-                position: static;
-                max-height: none;
-                padding: 10px;
-                justify-content: center;
-                border-radius: var(--radius-md);
-            }
-            .sidebar-title {
-                width: 100%;
-                margin-bottom: 0;
-                font-size: 0.8rem;
-                padding: 4px;
-            }
-            .sidebar-item {
-                font-size: 0.7rem;
-                padding: 7px 10px;
-                gap: 4px;
-            }
-            .sidebar-item .s-icon {
-                font-size: 0.9rem;
-                width: 16px;
-            }
-            .top-nav {
-                padding: 0 10px;
-                height: 48px;
-                gap: 8px;
-            }
-            .nav-logo {
-                font-size: 0.85rem;
-                gap: 6px;
-            }
-            .nav-logo .logo-icon {
-                width: 26px;
-                height: 26px;
-                font-size: 0.6rem;
-            }
-            .nav-link {
-                font-size: 0.7rem;
-                padding: 6px 8px;
-            }
-            .mapping-grid {
-                grid-template-columns: 1fr;
-            }
-            .er-diagram {
-                flex-direction: column;
-                align-items: center;
-            }
-            .er-connector {
-                transform: rotate(90deg);
-            }
-            .panel {
-                padding: 14px;
-            }
-            .detail-table {
-                font-size: 0.7rem;
-            }
-            .detail-table th,
-            .detail-table td {
-                padding: 6px 8px;
-            }
+            .main-container { flex-direction:column; padding:12px; gap:12px; }
+            .sidebar { width:100%; flex-direction:row; flex-wrap:wrap; gap:6px; position:static; max-height:none; padding:10px; justify-content:center; border-radius:var(--radius-md); }
+            .sidebar-title { width:100%; margin-bottom:0; font-size:0.8rem; padding:4px; }
+            .sidebar-item { font-size:0.7rem; padding:7px 10px; gap:4px; }
+            .sidebar-item .s-icon { font-size:0.9rem; width:16px; }
+            .top-nav { padding:0 10px; height:48px; gap:8px; }
+            .nav-logo { font-size:0.85rem; gap:6px; }
+            .nav-logo .logo-icon { width:26px; height:26px; font-size:0.6rem; }
+            .nav-link { font-size:0.7rem; padding:6px 8px; }
+            .mapping-grid { grid-template-columns:1fr; }
+            .er-diagram { flex-direction:column; align-items:center; }
+            .er-connector { transform:rotate(90deg); }
+            .panel { padding:14px; }
+            .detail-table { font-size:0.7rem; }
+            .detail-table th, .detail-table td { padding:6px 8px; }
         }
 
         @media (max-width: 480px) {
-            .nav-links {
-                gap: 2px;
-            }
-            .nav-link {
-                font-size: 0.65rem;
-                padding: 4px 6px;
-                letter-spacing: 0;
-            }
-            .nav-status {
-                font-size: 0.65rem;
-                gap: 4px;
-            }
-            .query-input-row {
-                gap: 6px;
-            }
-            .query-tag {
-                font-size: 0.7rem;
-                padding: 6px 10px;
-            }
+            .nav-links { gap:2px; }
+            .nav-link { font-size:0.65rem; padding:4px 6px; letter-spacing:0; }
+            .nav-status { font-size:0.65rem; gap:4px; }
+            .query-input-row { gap:6px; }
+            .query-tag { font-size:0.7rem; padding:6px 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 背景粒子 -->
     <div class="bg-particles" id="bgParticles"></div>
-
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <!-- 顶部导航 -->
     <nav class="top-nav">
         <div class="nav-logo">
             <div class="logo-icon">DB</div>
@@ -844,9 +718,7 @@
         </div>
     </nav>
 
-    <!-- 主布局 -->
     <div class="main-container">
-        <!-- 侧边栏 -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-title">📚 数据库概念</div>
             <button class="sidebar-item active" data-concept="table">
@@ -884,9 +756,7 @@
             </button>
         </aside>
 
-        <!-- 内容区 -->
         <main class="content-area" id="contentArea">
-            <!-- 概览面板 -->
             <section class="panel" id="section-overview">
                 <div class="panel-header">
                     <h2>🏗️ 罗德岛干员档案库 — 数据库设计全景</h2>
@@ -894,16 +764,13 @@
                     <span class="badge badge-ark">ARKNIGHTS ANALOGY</span>
                 </div>
                 <p style="color:var(--text-secondary);margin-bottom:16px;line-height:1.7;">
-                    欢迎来到 <span style="color:var(--accent-bright);font-weight:700;">PRTS数据库管理系统</span>。
-                    在这里，每一个<span style="color:var(--blue-accent);">数据库设计概念</span>都被映射为<span style="color:var(--accent-bright);">明日方舟游戏元素</span>。
+                    欢迎来到 <span style="color:var(--accent);font-weight:700;">PRTS数据库管理系统</span>。
+                    在这里，每一个<span style="color:var(--accent);">数据库设计概念</span>都被映射为<span style="color:#fff;">明日方舟游戏元素</span>。
                     点击左侧概念或下方卡片，探索干员档案背后的数据逻辑。
                 </p>
-                <div class="mapping-grid" id="overviewGrid">
-                    <!-- JS动态填充 -->
-                </div>
+                <div class="mapping-grid" id="overviewGrid"></div>
             </section>
 
-            <!-- 概念映射详情面板 -->
             <section class="panel detail-panel" id="section-mappings" style="display:none;">
                 <div class="panel-header">
                     <h2 id="mappingDetailTitle">🔗 概念映射详情</h2>
@@ -912,28 +779,25 @@
                 <div id="mappingDetailContent"></div>
             </section>
 
-            <!-- 查询模拟器 -->
             <section class="panel" id="section-query" style="display:none;">
                 <div class="panel-header">
                     <h2>🔍 公开招募 — SQL查询模拟器</h2>
                     <span class="badge badge-db">SELECT QUERY</span>
                 </div>
                 <p style="color:var(--text-secondary);margin-bottom:12px;font-size:0.85rem;">
-                    在明日方舟中，<span style="color:var(--accent-bright);">公开招募</span>就像执行一条
-                    <span style="color:var(--blue-accent);">SQL SELECT查询</span>。选择标签=设置WHERE条件，系统返回匹配的干员。
+                    在明日方舟中，<span style="color:#fff;font-weight:700;">公开招募</span>就像执行一条
+                    <span style="color:var(--accent);">SQL SELECT查询</span>。选择标签=设置WHERE条件，系统返回匹配的干员。
                 </p>
                 <div class="query-simulator">
                     <label style="color:var(--accent);font-weight:600;letter-spacing:1px;font-size:0.8rem;">🏷️ 选择标签 (WHERE条件)：</label>
-                    <div class="query-input-row" id="tagContainer">
-                        <!-- JS填充 -->
-                    </div>
+                    <div class="query-input-row" id="tagContainer"></div>
                     <div style="display:flex;gap:10px;flex-wrap:wrap;">
                         <button class="btn btn-primary" id="btnExecuteQuery">⚡ 执行查询 (招募)</button>
                         <button class="btn" id="btnClearTags">🔄 清除条件</button>
                     </div>
                     <label style="color:var(--accent);font-weight:600;letter-spacing:1px;font-size:0.8rem;margin-top:8px;">📊 查询结果：</label>
                     <div class="query-result-area" id="queryResult">
-                        <span style="color:#8b949e;">等待执行查询...</span>
+                        <span style="color:#888;">等待执行查询...</span>
                     </div>
                     <div class="code-block" id="sqlPreview" style="margin-top:8px;">
                         <span class="comment">-- 生成的SQL语句将在此显示</span>
@@ -941,22 +805,18 @@
                 </div>
             </section>
 
-            <!-- ER关系图 -->
             <section class="panel" id="section-er" style="display:none;">
                 <div class="panel-header">
                     <h2>🕸️ 干员档案ER关系图</h2>
                     <span class="badge badge-db">ENTITY-RELATIONSHIP</span>
                 </div>
                 <p style="color:var(--text-secondary);margin-bottom:12px;font-size:0.85rem;text-align:center;">
-                    数据库中的<span style="color:var(--accent-bright);">实体关系图(ER Diagram)</span>，
-                    就像罗德岛的<span style="color:var(--blue-accent);">干员关系网络</span>——展示各表之间的关联。
+                    数据库中的<span style="color:#fff;font-weight:700;">实体关系图(ER Diagram)</span>，
+                    就像罗德岛的<span style="color:var(--accent);">干员关系网络</span>——展示各表之间的关联。
                 </p>
-                <div class="er-diagram" id="erDiagram">
-                    <!-- JS填充 -->
-                </div>
+                <div class="er-diagram" id="erDiagram"></div>
             </section>
 
-            <!-- 终端 -->
             <section class="panel" id="section-terminal" style="display:none;">
                 <div class="panel-header">
                     <h2>💻 PRTS 数据库终端</h2>
@@ -994,7 +854,6 @@
 
     <script>
         (function() {
-            // ==================== 背景粒子 ====================
             const bgParticles = document.getElementById('bgParticles');
             for (let i = 0; i < 35; i++) {
                 const particle = document.createElement('div');
@@ -1008,10 +867,8 @@
                 bgParticles.appendChild(particle);
             }
 
-            // ==================== Toast ====================
             const toast = document.getElementById('toast');
             let toastTimer;
-
             function showToast(msg) {
                 toast.textContent = msg;
                 toast.classList.add('show');
@@ -1019,7 +876,6 @@
                 toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
             }
 
-            // ==================== 数据定义 ====================
             const concepts = {
                 'table': {
                     dbName: '表 (Table)',
@@ -1028,7 +884,7 @@
                     desc: '数据库中的<strong>表</strong>是存储数据的基本结构，就像罗德岛的<strong>干员档案册</strong>——每本档案册记录一类信息。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  📦 <strong style="color:var(--accent-bright);">表(Table)</strong> = <strong style="color:var(--blue-accent);">干员档案册</strong><br>
+                  📦 <strong style="color:#fff;">表(Table)</strong> = <strong style="color:var(--accent);">干员档案册</strong><br>
                   就像罗德岛为每位干员建立档案，数据库用<strong>表</strong>来组织存储数据。每个表有固定的列（字段）和可变的行（记录）。
                 </p>
                 <table class="detail-table">
@@ -1055,7 +911,7 @@
                     desc: '<strong>字段</strong>定义了表的结构，就像干员档案中的<strong>各项属性</strong>——攻击、防御、费用、职业等。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  📝 <strong style="color:var(--accent-bright);">字段(Field)</strong> = <strong style="color:var(--blue-accent);">干员属性条目</strong><br>
+                  📝 <strong style="color:#fff;">字段(Field)</strong> = <strong style="color:var(--accent);">干员属性条目</strong><br>
                   每个字段有<strong>数据类型</strong>，就像攻击力是整数、代号是文本、技能描述是长文本。
                 </p>
                 <table class="detail-table">
@@ -1074,7 +930,7 @@
                     desc: '<strong>主键</strong>是唯一标识每条记录的字段，就像每位干员的<strong>专属编号</strong>——绝不重复。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  🔑 <strong style="color:var(--accent-bright);">主键(Primary Key)</strong> = <strong style="color:var(--blue-accent);">干员唯一编号</strong><br>
+                  🔑 <strong style="color:#fff;">主键(Primary Key)</strong> = <strong style="color:var(--accent);">干员唯一编号</strong><br>
                   就像罗德岛为每位干员分配独一无二的ID，数据库用主键确保每条记录可被精准定位。
                 </p>
                 <table class="detail-table">
@@ -1098,7 +954,7 @@
                     desc: '<strong>外键</strong>建立表之间的关联，就像干员档案中<strong>职业字段</strong>引用了职业分类总表。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  🔗 <strong style="color:var(--accent-bright);">外键(Foreign Key)</strong> = <strong style="color:var(--blue-accent);">职业分类引用</strong><br>
+                  🔗 <strong style="color:#fff;">外键(Foreign Key)</strong> = <strong style="color:var(--accent);">职业分类引用</strong><br>
                   干员表中的"职业ID"引用职业分类表，就像近卫、术师等分类统一管理，避免冗余。
                 </p>
                 <table class="detail-table">
@@ -1115,7 +971,7 @@
                     desc: '<strong>索引</strong>加速数据检索，就像用<strong>标签快速筛选干员</strong>——不用翻阅所有档案。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  📇 <strong style="color:var(--accent-bright);">索引(Index)</strong> = <strong style="color:var(--blue-accent);">干员标签(快速筛选)</strong><br>
+                  📇 <strong style="color:#fff;">索引(Index)</strong> = <strong style="color:var(--accent);">干员标签(快速筛选)</strong><br>
                   公开招募中通过标签快速定位干员，正是索引思想的体现——避免全表扫描。
                 </p>
                 <div class="code-block" style="margin-top:12px;">
@@ -1132,7 +988,7 @@
                     desc: '<strong>SELECT查询</strong>从表中检索数据，就像<strong>公开招募</strong>——设定条件，返回符合条件的干员。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  🔎 <strong style="color:var(--accent-bright);">SQL查询</strong> = <strong style="color:var(--blue-accent);">公开招募系统</strong><br>
+                  🔎 <strong style="color:#fff;">SQL查询</strong> = <strong style="color:var(--accent);">公开招募系统</strong><br>
                   WHERE子句像招募标签，JOIN像关联查询干员技能，ORDER BY像按星级排序。
                 </p>
                 <div class="code-block" style="margin-top:12px;">
@@ -1151,7 +1007,7 @@
                     desc: '<strong>视图</strong>是预定义的查询结果集，就像<strong>编队界面</strong>——展示精选的干员组合，不存储实际数据。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  👁️ <strong style="color:var(--accent-bright);">视图(View)</strong> = <strong style="color:var(--blue-accent);">干员编队界面</strong><br>
+                  👁️ <strong style="color:#fff;">视图(View)</strong> = <strong style="color:var(--accent);">干员编队界面</strong><br>
                   编队不复制干员数据，只是展示特定视角。视图同理——不存储数据，只保存查询逻辑。
                 </p>
                 <div class="code-block" style="margin-top:12px;">
@@ -1168,7 +1024,7 @@
                     desc: '<strong>存储过程</strong>是预编译的SQL代码块，就像干员的<strong>技能</strong>——封装好的操作，需要时调用执行。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  ⚡ <strong style="color:var(--accent-bright);">存储过程</strong> = <strong style="color:var(--blue-accent);">干员技能</strong><br>
+                  ⚡ <strong style="color:#fff;">存储过程</strong> = <strong style="color:var(--accent);">干员技能</strong><br>
                   技能是预设的动作序列，存储过程是预设的SQL操作集合。调用即执行，高效复用。
                 </p>
                 <div class="code-block" style="margin-top:12px;">
@@ -1191,7 +1047,7 @@
                     desc: '<strong>事务</strong>确保一组操作要么全部成功要么全部回滚，就像<strong>作战任务</strong>——要么三星通关，要么撤退重来。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  🛡️ <strong style="color:var(--accent-bright);">事务(Transaction)</strong> = <strong style="color:var(--blue-accent);">作战任务</strong><br>
+                  🛡️ <strong style="color:#fff;">事务(Transaction)</strong> = <strong style="color:var(--accent);">作战任务</strong><br>
                   作战中所有操作必须全部成功才算通关（COMMIT），任何环节失败则撤退重来（ROLLBACK）。
                 </p>
                 <table class="detail-table">
@@ -1209,7 +1065,7 @@
                     desc: '<strong>范式</strong>是减少数据冗余的规则，就像干员<strong>培养阶段分明</strong>——精0→精1→精2，层层递进不混乱。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  📐 <strong style="color:var(--accent-bright);">数据库范式</strong> = <strong style="color:var(--blue-accent);">干员培养体系</strong><br>
+                  📐 <strong style="color:#fff;">数据库范式</strong> = <strong style="color:var(--accent);">干员培养体系</strong><br>
                   就像干员培养有清晰的阶段划分，范式确保数据结构合理、减少冗余。
                 </p>
                 <table class="detail-table">
@@ -1227,7 +1083,7 @@
                     desc: '<strong>ER模型</strong>描述实体及其关系，就像<strong>干员关系网络图</strong>——展示干员间的信赖、阵营、职业关联。',
                     detail: `
                 <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:12px;">
-                  🕸️ <strong style="color:var(--accent-bright);">ER模型(实体-关系)</strong> = <strong style="color:var(--blue-accent);">干员关系网络</strong><br>
+                  🕸️ <strong style="color:#fff;">ER模型(实体-关系)</strong> = <strong style="color:var(--accent);">干员关系网络</strong><br>
                   实体(干员、职业、技能)通过关系(属于、拥有、关联)连接，形成完整的数据图谱。
                 </p>
                 <div class="code-block" style="margin-top:12px;">
@@ -1240,51 +1096,31 @@
                 }
             };
 
-            // ==================== 干员模拟数据 ====================
             const operatorsData = [
-                { id: 1, name: '阿米娅', class: '术师', rarity: 5, atk: 580, def: 120, tags: ['输出', '法术'],
-                    cost: 18 },
-                { id: 2, name: '银灰', class: '近卫', rarity: 6, atk: 720, def: 380, tags: ['输出', '领袖'], cost: 20 },
-                { id: 3, name: '能天使', class: '狙击', rarity: 6, atk: 630, def: 160, tags: ['输出', '速射'],
-                cost: 14 },
-                { id: 4, name: '星熊', class: '重装', rarity: 6, atk: 380, def: 750, tags: ['防护', '坦克'], cost: 22 },
-                { id: 5, name: '塞雷娅', class: '重装', rarity: 6, atk: 450, def: 680, tags: ['防护', '治疗', '领袖'],
-                    cost: 21 },
-                { id: 6, name: '推进之王', class: '先锋', rarity: 6, atk: 550, def: 420, tags: ['先锋', '领袖'],
-                cost: 12 },
+                { id: 1, name: '阿米娅', class: '术师', rarity: 5, atk: 580, def: 120, tags: ['输出'], cost: 18 },
+                { id: 2, name: '银灰', class: '近卫', rarity: 6, atk: 720, def: 380, tags: ['输出'], cost: 20 },
+                { id: 3, name: '能天使', class: '狙击', rarity: 6, atk: 630, def: 160, tags: ['输出'], cost: 14 },
+                { id: 4, name: '星熊', class: '重装', rarity: 6, atk: 380, def: 750, tags: ['防护'], cost: 22 },
+                { id: 5, name: '塞雷娅', class: '重装', rarity: 6, atk: 450, def: 680, tags: ['防护', '治疗'], cost: 21 },
+                { id: 6, name: '推进之王', class: '先锋', rarity: 6, atk: 550, def: 420, tags: ['先锋'], cost: 12 },
                 { id: 7, name: '夜莺', class: '医疗', rarity: 6, atk: 320, def: 100, tags: ['治疗', '防护'], cost: 16 },
-                { id: 8, name: '安洁莉娜', class: '辅助', rarity: 6, atk: 500, def: 140, tags: ['辅助', '减速'],
-                cost: 14 },
-                { id: 9, name: '德克萨斯', class: '先锋', rarity: 5, atk: 480, def: 300, tags: ['先锋', '输出'],
-                cost: 11 },
-                { id: 10, name: '拉普兰德', class: '近卫', rarity: 5, atk: 660, def: 280, tags: ['输出', '沉默'],
-                    cost: 19 },
-                { id: 11, name: '白面鸮', class: '医疗', rarity: 5, atk: 380, def: 90, tags: ['治疗', '支援'],
-                cost: 15 },
-                { id: 12, name: '凛冬', class: '先锋', rarity: 5, atk: 420, def: 350, tags: ['先锋', '防护'],
-                cost: 10 },
-                { id: 13, name: '陈', class: '近卫', rarity: 6, atk: 680, def: 340, tags: ['输出', '爆发', '领袖'],
-                    cost: 21 },
-                { id: 14, name: '伊芙利特', class: '术师', rarity: 6, atk: 870, def: 110, tags: ['输出', '法术', '削弱'],
-                    cost: 30 },
-                { id: 15, name: '闪灵', class: '医疗', rarity: 6, atk: 350, def: 130, tags: ['治疗', '防护'],
-                cost: 18 },
-                { id: 16, name: '斯卡蒂', class: '近卫', rarity: 6, atk: 950, def: 200, tags: ['输出', '爆发'],
-                    cost: 19 },
-                { id: 17, name: '幽灵鲨', class: '近卫', rarity: 5, atk: 700, def: 310, tags: ['输出', '生存'],
-                cost: 18 },
-                { id: 18, name: '蓝毒', class: '狙击', rarity: 5, atk: 550, def: 130, tags: ['输出', '毒'], cost: 13 },
-                { id: 19, name: '赫默', class: '医疗', rarity: 5, atk: 340, def: 85, tags: ['治疗', '支援'],
-            cost: 16 },
-                { id: 20, name: '芙兰卡', class: '近卫', rarity: 5, atk: 640, def: 260, tags: ['输出', '穿透'],
-                cost: 17 },
+                { id: 8, name: '安洁莉娜', class: '辅助', rarity: 6, atk: 500, def: 140, tags: ['辅助'], cost: 14 },
+                { id: 9, name: '德克萨斯', class: '先锋', rarity: 5, atk: 480, def: 300, tags: ['先锋', '输出'], cost: 11 },
+                { id: 10, name: '拉普兰德', class: '近卫', rarity: 5, atk: 660, def: 280, tags: ['输出'], cost: 19 },
+                { id: 11, name: '白面鸮', class: '医疗', rarity: 5, atk: 380, def: 90, tags: ['治疗', '支援'], cost: 15 },
+                { id: 12, name: '凛冬', class: '先锋', rarity: 5, atk: 420, def: 350, tags: ['先锋', '防护'], cost: 10 },
+                { id: 13, name: '陈', class: '近卫', rarity: 6, atk: 680, def: 340, tags: ['输出', '爆发'], cost: 21 },
+                { id: 14, name: '伊芙利特', class: '术师', rarity: 6, atk: 870, def: 110, tags: ['输出', '削弱'], cost: 30 },
+                { id: 15, name: '闪灵', class: '医疗', rarity: 6, atk: 350, def: 130, tags: ['治疗', '防护'], cost: 18 },
+                { id: 16, name: '斯卡蒂', class: '近卫', rarity: 6, atk: 950, def: 200, tags: ['输出', '爆发'], cost: 19 },
+                { id: 17, name: '幽灵鲨', class: '近卫', rarity: 5, atk: 700, def: 310, tags: ['输出', '生存'], cost: 18 },
+                { id: 18, name: '蓝毒', class: '狙击', rarity: 5, atk: 550, def: 130, tags: ['输出'], cost: 13 },
+                { id: 19, name: '赫默', class: '医疗', rarity: 5, atk: 340, def: 85, tags: ['治疗', '支援'], cost: 16 },
+                { id: 20, name: '芙兰卡', class: '近卫', rarity: 5, atk: 640, def: 260, tags: ['输出'], cost: 17 },
             ];
 
-            const allTags = ['输出', '法术', '防护', '治疗', '先锋', '领袖', '坦克', '支援', '爆发', '削弱', '生存', '速射',
-                '减速', '沉默', '毒', '穿透'
-            ];
+            const allTags = ['输出', '防护', '治疗', '先锋', '支援', '爆发', '削弱', '生存'];
 
-            // ==================== 导航逻辑 ====================
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = {
                 'overview': document.getElementById('section-overview'),
@@ -1315,7 +1151,6 @@
                 });
             });
 
-            // ==================== 侧边栏逻辑 ====================
             const sidebarItems = document.querySelectorAll('.sidebar-item');
             let currentConcept = 'table';
 
@@ -1337,7 +1172,6 @@
                 document.getElementById('mappingDetailContent').innerHTML = concept.detail;
             }
 
-            // ==================== 概览网格 ====================
             const overviewGrid = document.getElementById('overviewGrid');
             Object.entries(concepts).forEach(([key, val]) => {
                 const card = document.createElement('div');
@@ -1360,7 +1194,6 @@
                 overviewGrid.appendChild(card);
             });
 
-            // ==================== 查询模拟器 ====================
             const tagContainer = document.getElementById('tagContainer');
             const queryResult = document.getElementById('queryResult');
             const sqlPreview = document.getElementById('sqlPreview');
@@ -1411,16 +1244,16 @@
                 }
                 if (filtered.length === 0) {
                     queryResult.innerHTML =
-                        '<span style="color:#c75b5b;">⚠️ 未找到匹配干员。请尝试减少标签条件。</span>';
+                        '<span style="color:#e63946;">⚠️ 未找到匹配干员。请尝试减少标签条件。</span>';
                 } else {
                     queryResult.innerHTML = filtered.map((op, i) => `
                 <div class="result-row">
-                  <span style="color:#5a6474;min-width:20px;">#${i + 1}</span>
+                  <span style="color:#555;min-width:20px;">#${i + 1}</span>
                   <span class="result-star">${'★'.repeat(op.rarity)}${'☆'.repeat(6 - op.rarity)}</span>
                   <span class="result-name">${op.name}</span>
                   <span class="result-class">${op.class}</span>
-                  <span style="color:#8b95a5;font-size:0.7rem;">ATK:${op.atk} DEF:${op.def} 费用:${op.cost}</span>
-                  <span style="color:#5a6474;font-size:0.65rem;">标签: ${op.tags.join(', ')}</span>
+                  <span style="color:#ccc;font-size:0.7rem;">ATK:${op.atk} DEF:${op.def} 费用:${op.cost}</span>
+                  <span style="color:#555;font-size:0.65rem;">标签: ${op.tags.join(', ')}</span>
                 </div>
               `).join('');
                 }
@@ -1431,29 +1264,22 @@
             btnClearTags.addEventListener('click', () => {
                 selectedTags = [];
                 document.querySelectorAll('.query-tag').forEach(t => t.classList.remove('active-tag'));
-                queryResult.innerHTML = '<span style="color:#8b949e;">等待执行查询...</span>';
+                queryResult.innerHTML = '<span style="color:#888;">等待执行查询...</span>';
                 updateSQLPreview();
                 showToast('🔄 条件已清除');
             });
 
             updateSQLPreview();
 
-            // ==================== ER图渲染 ====================
             function renderERDiagram() {
                 const erDiagram = document.getElementById('erDiagram');
                 const tables = [
-                    { name: 'operators (干员表)', fields: ['operator_id PK 🔑', 'name', 'class_id FK 🔗',
-                            'rarity', 'atk', 'def', 'cost'
-                        ], isMain: true },
-                    { name: 'classes (职业表)', fields: ['class_id PK 🔑', 'class_name', 'branch_name'],
-                    isMain: false },
-                    { name: 'skills (技能表)', fields: ['skill_id PK 🔑', 'skill_name', 'sp_cost', 'duration'],
-                        isMain: false },
-                    { name: 'operator_skills', fields: ['operator_id FK 🔗', 'skill_id FK 🔗', 'PRIMARY KEY(复合)'],
-                        isMain: false },
+                    { name: 'operators (干员表)', fields: ['operator_id PK 🔑', 'name', 'class_id FK 🔗', 'rarity', 'atk', 'def', 'cost'], isMain: true },
+                    { name: 'classes (职业表)', fields: ['class_id PK 🔑', 'class_name', 'branch_name'], isMain: false },
+                    { name: 'skills (技能表)', fields: ['skill_id PK 🔑', 'skill_name', 'sp_cost', 'duration'], isMain: false },
+                    { name: 'operator_skills', fields: ['operator_id FK 🔗', 'skill_id FK 🔗', 'PRIMARY KEY(复合)'], isMain: false },
                     { name: 'tags (标签表)', fields: ['tag_id PK 🔑', 'tag_name'], isMain: false },
-                    { name: 'operator_tags', fields: ['operator_id FK 🔗', 'tag_id FK 🔗', 'PRIMARY KEY(复合)'],
-                        isMain: false },
+                    { name: 'operator_tags', fields: ['operator_id FK 🔗', 'tag_id FK 🔗', 'PRIMARY KEY(复合)'], isMain: false },
                 ];
                 erDiagram.innerHTML = '';
                 tables.forEach((tbl, idx) => {
@@ -1479,11 +1305,9 @@
                 });
             }
 
-            // ==================== 初始化 ====================
             switchSection('overview');
             updateSQLPreview();
 
-            // 终端动态光标效果
             const terminalBody = document.getElementById('terminalBody');
             if (terminalBody) {
                 setInterval(() => {
@@ -1494,7 +1318,6 @@
                 }, 530);
             }
 
-            // ==================== 键盘快捷键 ====================
             document.addEventListener('keydown', (e) => {
                 if (e.ctrlKey || e.metaKey) {
                     switch (e.key.toLowerCase()) {
@@ -1534,12 +1357,10 @@
             });
 
             console.log('%c🏗️ PRTS数据库管理系统已就绪 %c| %c罗德岛干员档案库',
-                'color:#e8a849;font-size:1.2em;',
-                '',
-                'color:#5b9bd5;');
+                'color:#e63946;font-size:1.2em;', '', 'color:#fff;');
             console.log('%c💡 提示：使用 Ctrl+1~5 快速切换面板 | 在查询面板按 Ctrl+Enter 执行查询',
-                'color:#8b95a5;font-size:0.9em;');
-            console.log('%c📐 数据库设计 × 明日方舟 — 知识类比学习系统', 'color:#6db87d;');
+                'color:#888;font-size:0.9em;');
+            console.log('%c📐 数据库设计 × 明日方舟 — 知识类比学习系统', 'color:#e63946;');
         })();
     </script>
 </body>
